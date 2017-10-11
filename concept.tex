@@ -17,6 +17,8 @@
 %\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
 
 \pgfdeclareimage[width=\paperwidth]{mybackground}{src/futureits.png}
+\defbeamertemplate{description item}{align left}{\insertdescriptionitem\hfill}
+
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 \hypersetup{pdfpagemode=FullScreen}
 
@@ -75,53 +77,83 @@
 	\end{columns}
 \end{frame}
 
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{src/sequence.png}}
+\begin{frame}[fragile]{Model}
+ \par
+\end{frame}
+}
 
-\begin{frame}[fragile]{Sections}
-  Sections group slides of the same topic
+\begin{frame}[fragile]{Neural Network}
+  Neural networks have been proven to have the ability to compute any function, even
 
-  \begin{verbatim}    \section{Elements}\end{verbatim}
+  \begin{verbatim}   {Sequence prediction problems}\end{verbatim}
 
-  for which \themename provides a nice progress indicator \ldots
+  at which \emph{LSTMs} shine \ldots
 \end{frame}
 
-\section{Titleformats}
+\begin{frame}[fragile]{Neuron}
+\begin{columns}[b]
+		\column{0.0125\textwidth}
+		\column{0.4875\textwidth}
+		\begin{equation*}   
+  		 \Huge\sigma (z) \equiv  \frac{1}{1+ e^ {-z}}
+ 		 \end{equation*}
+		 \\
+		\includegraphics[width=4cm]{src/sigmoidplot.png}
+			
+		
+		
+		\column{0.4875\textwidth}
+		
+		\includegraphics[width=4cm]{src/sigmoid.png} 
 
-\begin{frame}{Metropolis titleformats}
-	\themename supports 4 different titleformats:
-	\begin{itemize}
-		\item Regular
-		\item \textsc{Smallcaps}
-		\item \textsc{allsmallcaps}
-		\item ALLCAPS
-	\end{itemize}
-	They can either be set at once for every title type or individually.
+			\par
+		\column{0.0125\textwidth}
+		
+
+	\end{columns}
+
 \end{frame}
 
+\begin{frame}{Neural Network}
+\includegraphics[width=\textwidth]{src/neuralnet.png} 
+\begin{itemize}[<+- | alert@+>]
+    \item  Feed forward Neural Networks
+    \item  Recurrent Neural Networks 
+    \begin{itemize}
+    \item Long short term memory RNN (LSTM)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementation}
+\setbeamertemplate{description item}[align left]
+	\begin{description}
+		\item [Model] LSTM
+		\item [Training data] GPS co-ordinates
+		\item [Testing]
+		\item [Verification]
+		\item [Beam forming algorithm] - selection of an appropriate beam forming algorithm
+		\item [Deployment]
+	\end{description}
+\end{frame}
+
+\begin{frame}{Merits}
+	\begin{description}
+		\item [Higher SNR] 
+		%The highly directional transmission improves the link budget, this increasing the range, both open-space and for indoor penetration
+		\item [Interference avoidance and rejection] 
+		%Beamforming overcomes external and internal (CCI) interference by exploiting the spatial properties of the antennas. Since the interference comes from a certain direction, the 				beamformer can apply a nulling technique ? send a ?null? towards the interferer, canceling it out.
+		\item [Higher network efficiency] 
+		%By significantly reducing the CCI, beamforming can allow much denser deployments than single antenna systems. Thanks to higher link budget, the likelihood of running high-order 				modulations (64QAM, 16QAM) is much higher even at the edges of the cell. Overall capacity is greatly improved.
+	\end{description}
+\end{frame}
 
 {\setbeamercolor{palette primary}{fg=black, bg=yellow}
 \begin{frame}[standout]
   Questions?
 \end{frame}
 }
-
-\appendix
-
-\begin{frame}[fragile]{Backup slides}
-  Sometimes, it is useful to add slides at the end of your presentation to
-  refer to during audience questions.
-
-  The best way to do this is to include the \verb|appendixnumberbeamer|
-  package in your preamble and call \verb|\appendix| before your backup slides.
-
-  \themename will automatically turn off slide numbering and progress bars for
-  slides in the appendix.
-\end{frame}
-
-\begin{frame}[allowframebreaks]{References}
-
-  \bibliography{demo}
-  \bibliographystyle{abbrv}
-
-\end{frame}
 
 \end{document}
