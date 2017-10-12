@@ -225,7 +225,12 @@
 \Ensure Serving node has not changed after every update interval.
 \If {New beacon received } 
 \\Find Closest node 
-\If {$Received position \neq Predicted position $} \\Beamforming: Align beam based on received position\Else\\Predict current position of vehicle \\ Beamforming: Align beam based on predicted position \EndIf
+\If {$Received position \neq Predicted position $}
+ \\Beamforming: Align beam based on received position
+\Else
+\\Predict current position of vehicle \\
+ Beamforming: Align beam based on predicted position
+ \EndIf
 \EndIf
 \end{algorithmic}
 \end{frame}
