@@ -2,6 +2,9 @@
 
 \usetheme[progressbar=frametitle]{metropolis}
 \usepackage{appendixnumberbeamer}
+\usepackage{amsmath}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
 
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
@@ -11,6 +14,7 @@
 
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
+\pgfplotsset{compat=1.11}
 
 \usepackage{xspace}
 %\setbeameroption{show notes on second screen=right} 
@@ -53,28 +57,33 @@
   \end{itemize}
 \end{frame}
 }
-\begin{frame}
-	%\frametitle{Two Figures aside}
-	
-	\begin{columns}[b]
-		\column{0.0125\textwidth}
-		\column{0.4875\textwidth}
-		\begin{overlayarea}{\textwidth}{.45\textheight}
+\begin{frame}{Problem}
+	\begin{columns}
+    \begin{column}{.45\textwidth}
+    \vfill
+        \begin{overlayarea}{\textwidth}{.45\textheight}
  		 \only<1-|handout:0>{\includegraphics[width=4cm]{src/futureits.png}}
 		\end{overlayarea}%
-			
-		Increased vehicular mobility
-		
-		\column{0.4875\textwidth}
-			\begin{overlayarea}{\textwidth}{.45\textheight}
-			  \only<2>{\includegraphics[width=4cm]{src/desired_user.png} }
-			\end{overlayarea}
-			\par
-		Need for constant beam realignment.
-		\column{0.0125\textwidth}
-		
-
-	\end{columns}
+    \end{column}
+    \begin{column}{.45\textwidth}
+    \begin{overlayarea}{\textwidth}{.45\textheight}
+ 		\only<2>{\includegraphics[width=4cm]{src/vehiclemobility.png} }
+		\end{overlayarea}%
+    \end{column}
+\end{columns}
+	\begin{columns}
+	
+    \begin{column}{.45\textwidth}
+    \begin{itemize}
+          \item Increased vehicular mobility \pause
+          \end{itemize}
+    \end{column}
+    \begin{column}{.45\textwidth}
+    \begin{itemize}
+  \item Need for constant beam realignment. 
+  \end{itemize}
+    \end{column}
+    \end{columns}
 \end{frame}
 
 {
@@ -92,32 +101,110 @@
   at which \emph{LSTMs} shine \ldots
 \end{frame}
 
-\begin{frame}[fragile]{Neuron}
-\begin{columns}[b]
-		\column{0.0125\textwidth}
-		\column{0.4875\textwidth}
-		\begin{equation*}   
-  		 \Huge\sigma (z) \equiv  \frac{1}{1+ e^ {-z}}
+\begin{frame}[fragile]{tanh Neuron}
+\begin{columns}
+    \begin{column}{.3\textwidth}
+       \begin{equation*}   
+  		 \sigma (z) \equiv  \tanh(x)
  		 \end{equation*}
-		 \\
-		\includegraphics[width=4cm]{src/sigmoidplot.png}
-			
-		
-		
-		\column{0.4875\textwidth}
-		
-		\includegraphics[width=4cm]{src/sigmoid.png} 
+    \end{column}
+    \begin{column}{.6\textwidth}
 
-			\par
-		\column{0.0125\textwidth}
-		
+		 \begin{figure}
+      \begin{tikzpicture}
+\begin{axis}[grid=both,
+          xmax=10,ymax=1,
+          axis lines=middle,
+          restrict y to domain=-7:12,
+          enlargelimits]
+\addplot[blue]  {tanh(deg(x))};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
 
-	\end{columns}
+	  \end{column}
+\end{columns}
 
 \end{frame}
 
+\begin{frame}{ReLU Neuron}
+\begin{columns}
+    \begin{column}{.3\textwidth}
+        \begin{equation*}   
+  		 \sigma (z) \equiv  max(0,z)
+ 		 \end{equation*}
+    \end{column}
+    \begin{column}{.6\textwidth}
+    \begin{figure}
+\begin{tikzpicture}
+    \begin{axis}%
+    [
+        grid=major,     
+        xmin=-6,
+        xmax=6,
+        axis x line=bottom,
+        ytick={0,.5,1},
+        ymax=1,
+        axis y line=middle,
+    ]
+        \addplot%
+        [
+            blue,%
+            mark=none,
+            samples=100,
+            domain=-6:6,
+        ]
+        (x,{max(0,x)});
+    \end{axis}
+\end{tikzpicture}
+  \end{figure}
+    \end{column}
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}{Sigmoid Neuron}
+\begin{columns}
+    \begin{column}{.3\textwidth}
+        \begin{equation*}   
+  		 \sigma (z) \equiv  \frac{1}{1+ e^ {-z}}
+ 		 \end{equation*}
+    \end{column}
+    \begin{column}{.6\textwidth}
+    \begin{figure}
+\begin{tikzpicture}
+    \begin{axis}%
+    [
+        grid=major,     
+        xmin=-6,
+        xmax=6,
+        axis x line=bottom,
+        ytick={0,.5,1},
+        ymax=1,
+        axis y line=middle,
+    ]
+        \addplot%
+        [
+            blue,%
+            mark=none,
+            samples=100,
+            domain=-6:6,
+        ]
+        (x,{1/(1+exp(-x))});
+    \end{axis}
+\end{tikzpicture}
+  \end{figure}
+    \end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{LSTM}
+\includegraphics[width=\textwidth]{src/lstm.png} 
+\end{frame}
+
 \begin{frame}{Neural Network}
-\includegraphics[width=\textwidth]{src/neuralnet.png} 
+\begin{columns}
+\begin{column}{.4\textwidth}
 \begin{itemize}[<+- | alert@+>]
     \item  Feed forward Neural Networks
     \item  Recurrent Neural Networks 
@@ -125,18 +212,22 @@
     \item Long short term memory RNN (LSTM)
     \end{itemize}
   \end{itemize}
+  \end{column}
+    \begin{column}{.5\textwidth}
+\includegraphics[width=\textwidth]{src/lstmnet.png} 
+\end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Implementation}
-\setbeamertemplate{description item}[align left]
-	\begin{description}
-		\item [Model] LSTM
-		\item [Training data] GPS co-ordinates
-		\item [Testing]
-		\item [Verification]
-		\item [Beam forming algorithm] - selection of an appropriate beam forming algorithm
-		\item [Deployment]
-	\end{description}
+\begin{frame}{Algorithm}
+\begin{algorithmic}
+\Require Vehicles encapsulate position, motion and velocity in beacons
+\Ensure Serving node has not changed after every update interval.
+\If {New beacon received } 
+\\Find Closest node 
+\If {$Received position \neq Predicted position $} \\Beamforming: Align beam based on received position\Else\\Predict current position of vehicle \\ Beamforming: Align beam based on predicted position \EndIf
+\EndIf
+\end{algorithmic}
 \end{frame}
 
 \begin{frame}{Merits}
